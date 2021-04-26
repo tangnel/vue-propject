@@ -1,28 +1,57 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+   <router-view v-if="isReload"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// import { readdir } from 'fs';
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  name:'',
+   provide() {
+    return {
+      reload: this.reload
+    }
+  },
+    data() {
+    return {
+      isReload: true
+    }
+  },
+  methods: {
+    reload() {
+    this.isReload = false
+    this.$nextTick(() => {
+      this.isReload = true
+    })
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 200px;
+  background-color: #38f;
+  line-height: 70px;
+  padding-bottom: 2px;
+  color: #fff;
+}
+.logo {
+  cursor: pointer;
+}
+.nav {
+  display: flex;
+}
+.nav li {
+  margin: 0 20px;
+  cursor: pointer;
+}
+.view {
+  padding: 50px 200px;
+}
+.active {
+  font-weight: bold;
 }
 </style>
